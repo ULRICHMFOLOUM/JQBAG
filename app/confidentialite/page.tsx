@@ -31,7 +31,7 @@ export default function PrivacyPage() {
             Politique de Confidentialité
           </h1>
           <p className="text-zinc-400 text-sm">
-            Dernière mise à jour : {new Date().toLocaleDateString("fr-FR", { year: "numeric", month: "long", day: "numeric" })}
+            Dernière mise à jour : 24 Novembre 2026
           </p>
         </div>
 

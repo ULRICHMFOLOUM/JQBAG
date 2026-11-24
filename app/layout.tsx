@@ -5,6 +5,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { LuxuryCursor } from "@/components/ui/luxury-cursor";
+import { FaviconSync } from "@/components/common/FaviconSync";
 import { prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
@@ -36,9 +37,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "JQ BAGS",
     ],
     icons: {
-      icon: [
-        { url: siteIcon },
-      ],
+      icon: [{ url: siteIcon }],
       shortcut: siteIcon,
       apple: siteIcon,
     },
@@ -63,27 +62,12 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang="fr" className="dark">
-      <head>
-        <link rel="icon" href={siteIcon} id="app-favicon" />
-        <link rel="apple-touch-icon" href={siteIcon} id="app-apple-icon" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                var savedIcon = localStorage.getItem('jqbags_site_icon');
-                if (savedIcon) {
-                  var fav = document.getElementById('app-favicon');
-                  var appleFav = document.getElementById('app-apple-icon');
-                  if (fav) fav.href = savedIcon;
-                  if (appleFav) appleFav.href = savedIcon;
-                }
-              } catch(e) {}
-            `,
-          }}
-        />
-      </head>
-      <body className="min-h-screen flex flex-col bg-obsidian-950 font-sans text-zinc-100">
+    <html lang="fr" className="dark" suppressHydrationWarning>
+      <body
+        className="min-h-screen flex flex-col bg-obsidian-950 font-sans text-zinc-100"
+        suppressHydrationWarning
+      >
+        <FaviconSync />
         <LuxuryCursor />
         <Providers>
           <Navbar siteLogo={siteIcon} />
