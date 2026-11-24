@@ -1,6 +1,6 @@
 import React from "react";
 import { notFound } from "next/navigation";
-import { prisma } from "@/lib/prisma";
+import { getProductDetail } from "@/lib/data-layer";
 import { ProductDetailView } from "@/components/products/ProductDetailView";
 import { ProductCard } from "@/components/products/ProductCard";
 
@@ -13,29 +13,15 @@ export default async function ProductDetailPage({
 }) {
   const { slug } = params;
 
-  const product = await prisma.product.findUnique({
-    where: { slug },
-    include: { category: true },
-  });
+  const { product, relatedProducts } = await getProductDetail(slug);
 
   if (!product) {
     notFound();
   }
 
-  // Articles similaires dans la même catégorie
-  const relatedProducts = await prisma.product.findMany({
-    where: {
-      categoryId: product.categoryId,
-      id: { not: product.id },
-      isActive: true,
-    },
-    take: 4,
-    include: { category: true },
-  });
-
   return (
     <div className="min-h-screen bg-obsidian-950 pt-28 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      <ProductDetailView product={product} relatedProducts={relatedProducts} />
+      <ProductDetailView product={product as any} relatedProducts={relatedProducts as any} />
 
       {/* Related Products */}
       {relatedProducts.length > 0 && (

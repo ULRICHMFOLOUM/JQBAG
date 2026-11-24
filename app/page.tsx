@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { prisma } from "@/lib/prisma";
+import { getHomeData } from "@/lib/data-layer";
 import { Spotlight } from "@/components/ui/spotlight";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { Marquee } from "@/components/ui/marquee";
@@ -25,25 +25,7 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export default async function HomePage() {
-  const [categories, featuredProducts, dbSettings] = await Promise.all([
-    prisma.category.findMany({
-      take: 3,
-      include: {
-        _count: { select: { products: true } },
-      },
-    }),
-    prisma.product.findMany({
-      where: { isFeatured: true, isActive: true },
-      take: 8,
-      include: { category: true },
-    }),
-    prisma.setting.findMany(),
-  ]);
-
-  const settingsMap: Record<string, string> = {};
-  for (const s of dbSettings) {
-    settingsMap[s.key] = s.value;
-  }
+  const { categories, featuredProducts, settingsMap } = await getHomeData();
 
   const heroMediaType = (settingsMap["hero_media_type"] as "image" | "video") || "image";
   const heroMediaUrl = settingsMap["hero_media_url"] || "/images/Hero1.jpeg";

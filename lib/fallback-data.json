@@ -1,0 +1,502 @@
+{
+  "categories": [
+    {
+      "id": "cmw557ycd0000x1c5loe0xiua",
+      "name": "Sacs en perles",
+      "slug": "sacs",
+      "description": "Sacs de soirée, minaudières, cabas et pochettes d'exception confectionnés à la main.",
+      "imageUrl": "/images/Sac 1.jpeg",
+      "createdAt": "2026-11-06T15:42:24.925Z",
+      "updatedAt": "2026-11-06T15:42:24.925Z",
+      "_count": {
+        "products": 7
+      }
+    },
+    {
+      "id": "cmw557ydc0001x1c5orrve4qv",
+      "name": "Porte-clés & Bijoux de sac",
+      "slug": "porte-cles",
+      "description": "Porte-clés originaux, colorés, personnalisables et étincelants en perles artisanales.",
+      "imageUrl": "/images/Porte 1.jpeg",
+      "createdAt": "2026-11-06T15:42:24.960Z",
+      "updatedAt": "2026-11-06T15:42:24.960Z",
+      "_count": {
+        "products": 4
+      }
+    },
+    {
+      "id": "cmw557ye50002x1c5l0had6h5",
+      "name": "Accessoires & Bijoux",
+      "slug": "accessoires",
+      "description": "Bracelets, colliers et parures exclusives sublimés par un travail d'orfèvre en perles.",
+      "imageUrl": "/images/Collection 3.jpeg",
+      "createdAt": "2026-11-06T15:42:24.989Z",
+      "updatedAt": "2026-11-06T15:42:24.989Z",
+      "_count": {
+        "products": 3
+      }
+    }
+  ],
+  "products": [
+    {
+      "id": "cmw557yz70006x1c5kezodhvq",
+      "name": "Sac Clutch Doré Prestige",
+      "slug": "sac-clutch-dore-prestige",
+      "description": "Chef-d'œuvre de joaillerie perlée, ce sac clutch combine perles dorées miroitantes et finitions en satin de soie noir. Fermoir magnétique plaqué or, anse chaîne amovible. Confectionné en plus de 32 heures de travail minutieux.",
+      "price": 45000,
+      "promoPrice": 38000,
+      "stock": 8,
+      "imageUrl": "/images/Sac 1.jpeg",
+      "imageUrl2": "/images/Sac 2.jpeg",
+      "imageUrl3": "/images/Sac 3.jpeg",
+      "isFeatured": true,
+      "isActive": true,
+      "dimensions": "22 × 14 × 6 cm",
+      "material": "Perles en verre facetté et acrylique haute densité, doublure satin.",
+      "categoryId": "cmw557ycd0000x1c5loe0xiua",
+      "createdAt": "2026-11-06T15:42:25.747Z",
+      "updatedAt": "2026-11-06T15:42:25.747Z",
+      "category": {
+        "id": "cmw557ycd0000x1c5loe0xiua",
+        "name": "Sacs en perles",
+        "slug": "sacs",
+        "description": "Sacs de soirée, minaudières, cabas et pochettes d'exception confectionnés à la main.",
+        "imageUrl": "/images/Sac 1.jpeg",
+        "createdAt": "2026-11-06T15:42:24.925Z",
+        "updatedAt": "2026-11-06T15:42:24.925Z"
+      }
+    },
+    {
+      "id": "cmw557z0j0008x1c5sm1uvtje",
+      "name": "Sac à Main Bohème Royal",
+      "slug": "sac-main-boheme-royal",
+      "description": "Alliance spectaculaire de géométrie et d'élégance, ce sac à main bohème est tressé à la main avec une sélection rigoureuse de perles irisées. Poignée rigide renforcée, doublure soyeuse et poche intérieure sécurisée.",
+      "price": 52000,
+      "promoPrice": null,
+      "stock": 5,
+      "imageUrl": "/images/Sac 4.jpeg",
+      "imageUrl2": "/images/Sac 5.jpeg",
+      "imageUrl3": "/images/Sac 6.jpeg",
+      "isFeatured": true,
+      "isActive": true,
+      "dimensions": "28 × 20 × 8 cm",
+      "material": "Perles premium haute brillance, armature renforcée fil de nylon 0.6mm.",
+      "categoryId": "cmw557ycd0000x1c5loe0xiua",
+      "createdAt": "2026-11-06T15:42:25.794Z",
+      "updatedAt": "2026-11-06T15:42:25.794Z",
+      "category": {
+        "id": "cmw557ycd0000x1c5loe0xiua",
+        "name": "Sacs en perles",
+        "slug": "sacs",
+        "description": "Sacs de soirée, minaudières, cabas et pochettes d'exception confectionnés à la main.",
+        "imageUrl": "/images/Sac 1.jpeg",
+        "createdAt": "2026-11-06T15:42:24.925Z",
+        "updatedAt": "2026-11-06T15:42:24.925Z"
+      }
+    },
+    {
+      "id": "cmw557z1r000ax1c5ajjxc0fb",
+      "name": "Mini Sac Bandoulière Perles d'Or",
+      "slug": "mini-sac-bandouliere-perles-dor",
+      "description": "Le compagnon idéal de vos soirées cocktail et réceptions. Sa chaîne délicate dorée s'harmonise parfaitement avec le damier de perles d'or. Léger, résistant et éclatant sous la lumière.",
+      "price": 39000,
+      "promoPrice": 34000,
+      "stock": 12,
+      "imageUrl": "/images/Sac 7.jpeg",
+      "imageUrl2": "/images/Sac 8.jpeg",
+      "imageUrl3": null,
+      "isFeatured": true,
+      "isActive": true,
+      "dimensions": "18 × 12 × 5 cm",
+      "material": "Perles permium dorées, chaîne alliage hypoallergénique.",
+      "categoryId": "cmw557ycd0000x1c5loe0xiua",
+      "createdAt": "2026-11-06T15:42:25.838Z",
+      "updatedAt": "2026-11-06T15:42:25.838Z",
+      "category": {
+        "id": "cmw557ycd0000x1c5loe0xiua",
+        "name": "Sacs en perles",
+        "slug": "sacs",
+        "description": "Sacs de soirée, minaudières, cabas et pochettes d'exception confectionnés à la main.",
+        "imageUrl": "/images/Sac 1.jpeg",
+        "createdAt": "2026-11-06T15:42:24.925Z",
+        "updatedAt": "2026-11-06T15:42:24.925Z"
+      }
+    },
+    {
+      "id": "cmw557z2s000cx1c56fmkf7fe",
+      "name": "Sac de Soirée Noir Impérial & Éclats d'Or",
+      "slug": "sac-soiree-noir-imperial",
+      "description": "Contraste intemporel du noir onyx et des reflets d'or pur. Ce sac de gala apporte une aura mystérieuse et ultra sophistiquée à toutes vos tenues de soirée.",
+      "price": 68000,
+      "promoPrice": 59000,
+      "stock": 4,
+      "imageUrl": "/images/Sac 9.jpeg",
+      "imageUrl2": "/images/Sac 10.jpeg",
+      "imageUrl3": null,
+      "isFeatured": true,
+      "isActive": true,
+      "dimensions": "24 × 16 × 7 cm",
+      "material": "Perles onyx lustrées et perles dorées scintillantes.",
+      "categoryId": "cmw557ycd0000x1c5loe0xiua",
+      "createdAt": "2026-11-06T15:42:25.875Z",
+      "updatedAt": "2026-11-06T15:42:25.875Z",
+      "category": {
+        "id": "cmw557ycd0000x1c5loe0xiua",
+        "name": "Sacs en perles",
+        "slug": "sacs",
+        "description": "Sacs de soirée, minaudières, cabas et pochettes d'exception confectionnés à la main.",
+        "imageUrl": "/images/Sac 1.jpeg",
+        "createdAt": "2026-11-06T15:42:24.925Z",
+        "updatedAt": "2026-11-06T15:42:24.925Z"
+      }
+    },
+    {
+      "id": "cmw557z3t000ex1c580thcn43",
+      "name": "Pochette Vénus Ivoire Céleste",
+      "slug": "pochette-venus-ivoire-celeste",
+      "description": "La pureté des perles ivoires nacrées unie à la finesse d'un tressage haute couture. Idéale pour les mariages, galas et cérémonies somptueuses.",
+      "price": 49000,
+      "promoPrice": null,
+      "stock": 6,
+      "imageUrl": "/images/Sac 11.jpeg",
+      "imageUrl2": "/images/Sac 12.jpeg",
+      "imageUrl3": null,
+      "isFeatured": false,
+      "isActive": true,
+      "dimensions": "20 × 13 × 5 cm",
+      "material": "Perles nacrées haute résistance, fermeture invisible.",
+      "categoryId": "cmw557ycd0000x1c5loe0xiua",
+      "createdAt": "2026-11-06T15:42:25.912Z",
+      "updatedAt": "2026-11-06T15:42:25.912Z",
+      "category": {
+        "id": "cmw557ycd0000x1c5loe0xiua",
+        "name": "Sacs en perles",
+        "slug": "sacs",
+        "description": "Sacs de soirée, minaudières, cabas et pochettes d'exception confectionnés à la main.",
+        "imageUrl": "/images/Sac 1.jpeg",
+        "createdAt": "2026-11-06T15:42:24.925Z",
+        "updatedAt": "2026-11-06T15:42:24.925Z"
+      }
+    },
+    {
+      "id": "cmw557z4u000gx1c5tkkxaypb",
+      "name": "Sac Seau Tressé Soleil Levant",
+      "slug": "sac-seau-tresse-soleil-levant",
+      "description": "Structure cylindrique audacieuse et contemporaine. Sa silhouette sculpturale capte la lumière à chaque mouvement et rehausse instantanément votre démarche.",
+      "price": 58000,
+      "promoPrice": 49500,
+      "stock": 5,
+      "imageUrl": "/images/Sac 13.jpeg",
+      "imageUrl2": "/images/Sac 14.jpeg",
+      "imageUrl3": null,
+      "isFeatured": true,
+      "isActive": true,
+      "dimensions": "17 × 19 × 17 cm",
+      "material": "Perles acryliques translucides et opaques, anse perlée doublée.",
+      "categoryId": "cmw557ycd0000x1c5loe0xiua",
+      "createdAt": "2026-11-06T15:42:25.949Z",
+      "updatedAt": "2026-11-06T15:42:25.949Z",
+      "category": {
+        "id": "cmw557ycd0000x1c5loe0xiua",
+        "name": "Sacs en perles",
+        "slug": "sacs",
+        "description": "Sacs de soirée, minaudières, cabas et pochettes d'exception confectionnés à la main.",
+        "imageUrl": "/images/Sac 1.jpeg",
+        "createdAt": "2026-11-06T15:42:24.925Z",
+        "updatedAt": "2026-11-06T15:42:24.925Z"
+      }
+    },
+    {
+      "id": "cmw557z62000ix1c57lubzucc",
+      "name": "Sac Box Baroque Perles de Cristal",
+      "slug": "sac-box-baroque-cristal",
+      "description": "Architecture rigide type boîte à bijoux, entièrement sertie de perles à facettes géométriques. Un bijou sculptural à porter à la main ou à l'épaule.",
+      "price": 62000,
+      "promoPrice": null,
+      "stock": 3,
+      "imageUrl": "/images/Sac 15.jpeg",
+      "imageUrl2": "/images/Sac 16.jpeg",
+      "imageUrl3": null,
+      "isFeatured": false,
+      "isActive": true,
+      "dimensions": "19 × 14 × 7 cm",
+      "material": "Cristaux acryliques taillés diamant, monture rigide.",
+      "categoryId": "cmw557ycd0000x1c5loe0xiua",
+      "createdAt": "2026-11-06T15:42:25.993Z",
+      "updatedAt": "2026-11-06T15:42:25.993Z",
+      "category": {
+        "id": "cmw557ycd0000x1c5loe0xiua",
+        "name": "Sacs en perles",
+        "slug": "sacs",
+        "description": "Sacs de soirée, minaudières, cabas et pochettes d'exception confectionnés à la main.",
+        "imageUrl": "/images/Sac 1.jpeg",
+        "createdAt": "2026-11-06T15:42:24.925Z",
+        "updatedAt": "2026-11-06T15:42:24.925Z"
+      }
+    },
+    {
+      "id": "cmw557z77000kx1c5ebh5i1p2",
+      "name": "Porte-clé Étoile Dorée Scintillante",
+      "slug": "porte-cle-etoile-doree",
+      "description": "Porte-clé en relief 3D en forme d'étoile. Mousqueton doré haute résistance qui habille vos clés ou sert de somptueux bijou de sac.",
+      "price": 8000,
+      "promoPrice": 6500,
+      "stock": 25,
+      "imageUrl": "/images/Porte 1.jpeg",
+      "imageUrl2": "/images/Collection 1.jpeg",
+      "imageUrl3": null,
+      "isFeatured": true,
+      "isActive": true,
+      "dimensions": "10 cm de hauteur",
+      "material": "Perles dorées polies miroir, mousqueton acier inoxydable.",
+      "categoryId": "cmw557ydc0001x1c5orrve4qv",
+      "createdAt": "2026-11-06T15:42:26.033Z",
+      "updatedAt": "2026-11-06T15:42:26.033Z",
+      "category": {
+        "id": "cmw557ydc0001x1c5orrve4qv",
+        "name": "Porte-clés & Bijoux de sac",
+        "slug": "porte-cles",
+        "description": "Porte-clés originaux, colorés, personnalisables et étincelants en perles artisanales.",
+        "imageUrl": "/images/Porte 1.jpeg",
+        "createdAt": "2026-11-06T15:42:24.960Z",
+        "updatedAt": "2026-11-06T15:42:24.960Z"
+      }
+    },
+    {
+      "id": "cmw557z8f000mx1c5ffs39ztg",
+      "name": "Porte-clé Prénom Personnalisé Sur-Mesure",
+      "slug": "porte-cle-prenom-personnalise",
+      "description": "Personnalisez votre porte-clé avec vos initiales ou votre prénom complet. Choisissez vos nuances de perles lors de votre commande ou via notre assistance WhatsApp.",
+      "price": 12000,
+      "promoPrice": null,
+      "stock": 30,
+      "imageUrl": "/images/Porte 2.jpeg",
+      "imageUrl2": "/images/Collection 2.jpeg",
+      "imageUrl3": null,
+      "isFeatured": true,
+      "isActive": true,
+      "dimensions": "Sur-mesure (environ 12 cm)",
+      "material": "Lettres acryliques gravées, perles bicolores au choix.",
+      "categoryId": "cmw557ydc0001x1c5orrve4qv",
+      "createdAt": "2026-11-06T15:42:26.078Z",
+      "updatedAt": "2026-11-06T15:42:26.078Z",
+      "category": {
+        "id": "cmw557ydc0001x1c5orrve4qv",
+        "name": "Porte-clés & Bijoux de sac",
+        "slug": "porte-cles",
+        "description": "Porte-clés originaux, colorés, personnalisables et étincelants en perles artisanales.",
+        "imageUrl": "/images/Porte 1.jpeg",
+        "createdAt": "2026-11-06T15:42:24.960Z",
+        "updatedAt": "2026-11-06T15:42:24.960Z"
+      }
+    },
+    {
+      "id": "cmw557z9j000ox1c520jdtord",
+      "name": "Porte-clé Cœur Nacré Romantique",
+      "slug": "porte-cle-coeur-nacre",
+      "description": "Forme cœur délicate tissée en micro-perles de haute précision. Le cadeau plein d'émotion et de grâce fait main.",
+      "price": 7500,
+      "promoPrice": null,
+      "stock": 40,
+      "imageUrl": "/images/Collection 1.jpeg",
+      "imageUrl2": null,
+      "imageUrl3": null,
+      "isFeatured": false,
+      "isActive": true,
+      "dimensions": "8 cm",
+      "material": "Micro-perles nacrées, anneau brisé renforcé.",
+      "categoryId": "cmw557ydc0001x1c5orrve4qv",
+      "createdAt": "2026-11-06T15:42:26.119Z",
+      "updatedAt": "2026-11-06T15:42:26.119Z",
+      "category": {
+        "id": "cmw557ydc0001x1c5orrve4qv",
+        "name": "Porte-clés & Bijoux de sac",
+        "slug": "porte-cles",
+        "description": "Porte-clés originaux, colorés, personnalisables et étincelants en perles artisanales.",
+        "imageUrl": "/images/Porte 1.jpeg",
+        "createdAt": "2026-11-06T15:42:24.960Z",
+        "updatedAt": "2026-11-06T15:42:24.960Z"
+      }
+    },
+    {
+      "id": "cmw557zaj000qx1c50pzftetr",
+      "name": "Porte-clé Fleur Tropicale Vibrante",
+      "slug": "porte-cle-fleur-tropicale",
+      "description": "Inspiration flore équatoriale. Des pétales de perles aux teintes chatoyantes qui apportent une touche de fraîcheur et de joie à vos accessoires.",
+      "price": 9000,
+      "promoPrice": 7500,
+      "stock": 20,
+      "imageUrl": "/images/Collection 2.jpeg",
+      "imageUrl2": null,
+      "imageUrl3": null,
+      "isFeatured": false,
+      "isActive": true,
+      "dimensions": "11 cm",
+      "material": "Perles polies résistantes aux chocs et à l'eau.",
+      "categoryId": "cmw557ydc0001x1c5orrve4qv",
+      "createdAt": "2026-11-06T15:42:26.154Z",
+      "updatedAt": "2026-11-06T15:42:26.154Z",
+      "category": {
+        "id": "cmw557ydc0001x1c5orrve4qv",
+        "name": "Porte-clés & Bijoux de sac",
+        "slug": "porte-cles",
+        "description": "Porte-clés originaux, colorés, personnalisables et étincelants en perles artisanales.",
+        "imageUrl": "/images/Porte 1.jpeg",
+        "createdAt": "2026-11-06T15:42:24.960Z",
+        "updatedAt": "2026-11-06T15:42:24.960Z"
+      }
+    },
+    {
+      "id": "cmw557zbk000sx1c5v7f21r83",
+      "name": "Bracelet Manchette Perles Impériales",
+      "slug": "bracelet-manchette-perles-imperiales",
+      "description": "Manchette d'apparat au motif chevron or et améthyste. Fermoir magnétique plaqué or brossé.",
+      "price": 18000,
+      "promoPrice": 15000,
+      "stock": 15,
+      "imageUrl": "/images/Collection 3.jpeg",
+      "imageUrl2": "/images/Collection 4.jpeg",
+      "imageUrl3": null,
+      "isFeatured": true,
+      "isActive": true,
+      "dimensions": "Largeur 4 cm, circonférence 18 cm",
+      "material": "Perles de rocaille japonaises ultra-régulières, fil Fireline.",
+      "categoryId": "cmw557ye50002x1c5l0had6h5",
+      "createdAt": "2026-11-06T15:42:26.191Z",
+      "updatedAt": "2026-11-06T15:42:26.191Z",
+      "category": {
+        "id": "cmw557ye50002x1c5l0had6h5",
+        "name": "Accessoires & Bijoux",
+        "slug": "accessoires",
+        "description": "Bracelets, colliers et parures exclusives sublimés par un travail d'orfèvre en perles.",
+        "imageUrl": "/images/Collection 3.jpeg",
+        "createdAt": "2026-11-06T15:42:24.989Z",
+        "updatedAt": "2026-11-06T15:42:24.989Z"
+      }
+    },
+    {
+      "id": "cmw557zcl000ux1c5rpzi7ynf",
+      "name": "Collier Ras-de-Cou Reine de Saba",
+      "slug": "collier-ras-de-cou-reine-de-saba",
+      "description": "Collier plastron somptueux. Chaque perle est positionnée pour épouser gracieusement le décolleté avec éclat.",
+      "price": 32000,
+      "promoPrice": null,
+      "stock": 7,
+      "imageUrl": "/images/Collection 5.jpeg",
+      "imageUrl2": "/images/Collection 6.jpeg",
+      "imageUrl3": null,
+      "isFeatured": true,
+      "isActive": true,
+      "dimensions": "Tour de cou 38-44 cm réglable",
+      "material": "Perles cristal, perles dorées haute tenue, fermoir mousqueton.",
+      "categoryId": "cmw557ye50002x1c5l0had6h5",
+      "createdAt": "2026-11-06T15:42:26.229Z",
+      "updatedAt": "2026-11-06T15:42:26.229Z",
+      "category": {
+        "id": "cmw557ye50002x1c5l0had6h5",
+        "name": "Accessoires & Bijoux",
+        "slug": "accessoires",
+        "description": "Bracelets, colliers et parures exclusives sublimés par un travail d'orfèvre en perles.",
+        "imageUrl": "/images/Collection 3.jpeg",
+        "createdAt": "2026-11-06T15:42:24.989Z",
+        "updatedAt": "2026-11-06T15:42:24.989Z"
+      }
+    },
+    {
+      "id": "cmw557zdx000wx1c5k249o0ku",
+      "name": "Ceinture Bijou d'Apparat Étoilée",
+      "slug": "ceinture-bijou-d-apparat",
+      "description": "Ceinture entièrement tissée en perles pour sublimer vos caftans, robes de soirée ou ensembles haute couture.",
+      "price": 42000,
+      "promoPrice": 36000,
+      "stock": 6,
+      "imageUrl": "/images/Collection 7.jpeg",
+      "imageUrl2": "/images/Collection 8.jpeg",
+      "imageUrl3": null,
+      "isFeatured": false,
+      "isActive": true,
+      "dimensions": "Longueur 85 cm + chaîne de réglage 15 cm",
+      "material": "Perles facettées premium, boucle bijou dorée.",
+      "categoryId": "cmw557ye50002x1c5l0had6h5",
+      "createdAt": "2026-11-06T15:42:26.275Z",
+      "updatedAt": "2026-11-06T15:42:26.275Z",
+      "category": {
+        "id": "cmw557ye50002x1c5l0had6h5",
+        "name": "Accessoires & Bijoux",
+        "slug": "accessoires",
+        "description": "Bracelets, colliers et parures exclusives sublimés par un travail d'orfèvre en perles.",
+        "imageUrl": "/images/Collection 3.jpeg",
+        "createdAt": "2026-11-06T15:42:24.989Z",
+        "updatedAt": "2026-11-06T15:42:24.989Z"
+      }
+    }
+  ],
+  "settings": [
+    {
+      "id": "cmw557zfc000xx1c5drw4zblq",
+      "key": "site_name",
+      "value": "JQ BAGS",
+      "updatedAt": "2026-11-06T15:42:26.328Z"
+    },
+    {
+      "id": "cmw557zgg000yx1c5lyrne2do",
+      "key": "site_tagline",
+      "value": "Sacs & Accessoires d'artisanat de luxe en perles",
+      "updatedAt": "2026-11-06T15:42:26.368Z"
+    },
+    {
+      "id": "cmw557zhm000zx1c5do584nzy",
+      "key": "hero_title",
+      "value": "L'Élégance Pure Façonnée en Perles",
+      "updatedAt": "2026-11-24T01:16:59.532Z"
+    },
+    {
+      "id": "cmw557zil0010x1c5ikcw4wqb",
+      "key": "hero_description",
+      "value": "Chaque pièce est une œuvre d'art réalisée à la main, alliant savoir-faire d'exception et glamour contemporain.",
+      "updatedAt": "2026-11-24T01:16:59.596Z"
+    },
+    {
+      "id": "cmw557zjh0011x1c5boftw17y",
+      "key": "whatsapp_number",
+      "value": "23772362828",
+      "updatedAt": "2026-11-06T15:42:26.478Z"
+    },
+    {
+      "id": "cmw557zkf0012x1c5sqeciq2q",
+      "key": "contact_email",
+      "value": "contact@jqbags.com",
+      "updatedAt": "2026-11-06T15:42:26.511Z"
+    },
+    {
+      "id": "cmw557zld0013x1c5y4r5w698",
+      "key": "contact_address",
+      "value": "Akwa, Douala — Cameroun",
+      "updatedAt": "2026-11-06T15:42:26.546Z"
+    },
+    {
+      "id": "cmw557zmz0014x1c5zzp3i9yr",
+      "key": "announcement_text",
+      "value": "✨ Livraison offerte à partir de 50 000 FCFA • Paiement Mobile Money sécurisé via Fapshi",
+      "updatedAt": "2026-11-06T15:42:26.603Z"
+    },
+    {
+      "id": "cmwu08cbg0000k6jreos3fgj2",
+      "key": "hero_media_type",
+      "value": "video",
+      "updatedAt": "2026-11-24T01:16:59.353Z"
+    },
+    {
+      "id": "cmwu08ce90001k6jrfqkdk04u",
+      "key": "hero_media_url",
+      "value": "/videos/hero_animation.mp4",
+      "updatedAt": "2026-11-24T01:16:59.457Z"
+    },
+    {
+      "id": "cmwu08cjk0004k6jrffuu01e1",
+      "key": "hero_badge",
+      "value": "Atelier de Maroquinerie Perlée • Douala, Cameroun",
+      "updatedAt": "2026-11-24T01:16:59.648Z"
+    }
+  ]
+}

@@ -12,38 +12,6 @@ export default async function AdminPage() {
   const session = await getServerSession(authOptions);
   const isAdmin = (session?.user as any)?.role === "ADMIN";
 
-  // Charger les données pour l'administrateur
-  const [products, categories, recentOrders, allOrders, dbSettings] = await Promise.all([
-    prisma.product.findMany({
-      orderBy: { createdAt: "desc" },
-      include: { category: true },
-    }),
-    prisma.category.findMany(),
-    prisma.order.findMany({
-      take: 15,
-      orderBy: { createdAt: "desc" },
-      include: { items: true },
-    }),
-    prisma.order.findMany({
-      where: { paymentStatus: "SUCCESSFUL" },
-      select: { totalAmount: true },
-    }),
-    prisma.setting.findMany(),
-  ]);
-
-  const totalRevenue = allOrders.reduce((sum, o) => sum + o.totalAmount, 0);
-
-  const stats = {
-    totalRevenue,
-    totalProducts: products.length,
-    totalOrders: recentOrders.length,
-  };
-
-  const initialSettings: Record<string, string> = {};
-  for (const s of dbSettings) {
-    initialSettings[s.key] = s.value;
-  }
-
   if (!isAdmin) {
     return (
       <div className="min-h-screen bg-obsidian-950 pt-36 pb-20 px-4 max-w-md mx-auto text-center space-y-6">
@@ -74,6 +42,48 @@ export default async function AdminPage() {
         </div>
       </div>
     );
+  }
+
+  // Charger les données pour l'administrateur sécurisé par try/catch
+  let products: any[] = [];
+  let categories: any[] = [];
+  let recentOrders: any[] = [];
+  let allOrders: any[] = [];
+  let dbSettings: any[] = [];
+
+  try {
+    [products, categories, recentOrders, allOrders, dbSettings] = await Promise.all([
+      prisma.product.findMany({
+        orderBy: { createdAt: "desc" },
+        include: { category: true },
+      }),
+      prisma.category.findMany(),
+      prisma.order.findMany({
+        take: 15,
+        orderBy: { createdAt: "desc" },
+        include: { items: true },
+      }),
+      prisma.order.findMany({
+        where: { paymentStatus: "SUCCESSFUL" },
+        select: { totalAmount: true },
+      }),
+      prisma.setting.findMany(),
+    ]);
+  } catch (err) {
+    console.error("Admin data query error:", err);
+  }
+
+  const totalRevenue = allOrders.reduce((sum, o) => sum + (o.totalAmount || 0), 0);
+
+  const stats = {
+    totalRevenue,
+    totalProducts: products.length,
+    totalOrders: recentOrders.length,
+  };
+
+  const initialSettings: Record<string, string> = {};
+  for (const s of dbSettings) {
+    initialSettings[s.key] = s.value;
   }
 
   return (

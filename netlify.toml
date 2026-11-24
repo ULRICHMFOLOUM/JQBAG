@@ -5,7 +5,11 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
+[functions]
+  included_files = ["prisma/**"]
+
 [build.environment]
   NODE_VERSION = "20"
   PRISMA_GENERATE_DATAPROXY = "false"
+  DATABASE_URL = "file:./dev.db"
 
