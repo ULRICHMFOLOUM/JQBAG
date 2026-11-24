@@ -101,7 +101,7 @@ export default async function HomePage() {
             loop
             muted
             playsInline
-            className="absolute inset-0 w-full h-full object-cover opacity-50 scale-105 pointer-events-none transition-opacity duration-500"
+            className="absolute inset-0 w-full h-full object-cover opacity-50 scale-105 pointer-events-none transition-opacity duration-500 hero-gentle-breathe"
           />
         ) : (
           <Image
@@ -111,7 +111,7 @@ export default async function HomePage() {
             fill
             priority
             sizes="100vw"
-            className="object-cover opacity-45 scale-105 pointer-events-none transition-opacity duration-500"
+            className="object-cover opacity-45 scale-105 pointer-events-none transition-opacity duration-500 hero-gentle-breathe"
           />
         )}
 

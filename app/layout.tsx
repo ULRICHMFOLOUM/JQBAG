@@ -4,6 +4,7 @@ import { Providers } from "./providers";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { CartDrawer } from "@/components/cart/CartDrawer";
+import { LuxuryCursor } from "@/components/ui/luxury-cursor";
 import { prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
@@ -68,6 +69,7 @@ export default async function RootLayout({
         <link rel="apple-touch-icon" href={siteIcon} />
       </head>
       <body className="min-h-screen flex flex-col bg-obsidian-950 font-sans text-zinc-100">
+        <LuxuryCursor />
         <Providers>
           <Navbar siteLogo={siteIcon} />
           <CartDrawer />
