@@ -166,3 +166,4 @@ export async function getProductDetail(slug: string) {
     relatedProducts,
   };
 }
+

@@ -10,6 +10,5 @@
 
 [build.environment]
   NODE_VERSION = "20"
-  PRISMA_GENERATE_DATAPROXY = "false"
   DATABASE_URL = "file:./dev.db"
 
