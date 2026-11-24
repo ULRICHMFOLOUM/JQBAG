@@ -86,16 +86,16 @@ export function AdminDashboardView({
   const [isSavingHero, setIsSavingHero] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
 
-  // Preset media options from real atelier photos
+  // Preset media options from real atelier photos & videos
   const heroPresets = [
-    { label: "Hero Prestige 1", url: "/images/Hero1.jpeg" },
-    { label: "Hero Prestige 2", url: "/images/Hero2.jpeg" },
-    { label: "Hero Prestige 3", url: "/images/Hero3.jpeg" },
-    { label: "Hero Prestige 4", url: "/images/Hero4.jpeg" },
-    { label: "Hero Prestige 5", url: "/images/Hero5.jpeg" },
-    { label: "Collection Sac 1", url: "/images/Sac 1.jpeg" },
-    { label: "Collection Sac 4", url: "/images/Sac 4.jpeg" },
-    { label: "Collection Atelier", url: "/images/Collection 1.jpeg" },
+    { label: "✨ Vidéo Cinéma Hero", url: "/videos/hero_animation.mp4", type: "video" as const, thumb: "/images/Hero1.jpeg" },
+    { label: "Hero Prestige 1", url: "/images/Hero1.jpeg", type: "image" as const, thumb: "/images/Hero1.jpeg" },
+    { label: "Hero Prestige 2", url: "/images/Hero2.jpeg", type: "image" as const, thumb: "/images/Hero2.jpeg" },
+    { label: "Hero Prestige 3", url: "/images/Hero3.jpeg", type: "image" as const, thumb: "/images/Hero3.jpeg" },
+    { label: "Hero Prestige 4", url: "/images/Hero4.jpeg", type: "image" as const, thumb: "/images/Hero4.jpeg" },
+    { label: "Hero Prestige 5", url: "/images/Hero5.jpeg", type: "image" as const, thumb: "/images/Hero5.jpeg" },
+    { label: "Collection Sac 1", url: "/images/Sac 1.jpeg", type: "image" as const, thumb: "/images/Sac 1.jpeg" },
+    { label: "Collection Sac 4", url: "/images/Sac 4.jpeg", type: "image" as const, thumb: "/images/Sac 4.jpeg" },
   ];
 
   // Add Product Modal state
@@ -518,7 +518,7 @@ export function AdminDashboardView({
                     type="button"
                     onClick={() => {
                       setHeroMediaUrl(preset.url);
-                      setHeroMediaType("image");
+                      setHeroMediaType(preset.type);
                     }}
                     className={`relative group rounded-xl overflow-hidden aspect-video border transition-all ${
                       heroMediaUrl === preset.url
@@ -527,16 +527,21 @@ export function AdminDashboardView({
                     }`}
                   >
                     <Image
-                      src={preset.url}
+                      src={preset.thumb}
                       alt={preset.label}
                       fill
                       sizes="200px"
                       className="object-cover"
                     />
-                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 flex items-end p-1.5">
+                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 flex items-end p-1.5 justify-between">
                       <span className="text-[10px] text-white font-medium truncate block drop-shadow">
                         {preset.label}
                       </span>
+                      {preset.type === "video" && (
+                        <span className="p-0.5 rounded bg-gold-500/80 text-obsidian-950 shrink-0 ml-1">
+                          <Video className="w-2.5 h-2.5" />
+                        </span>
+                      )}
                     </div>
                     {heroMediaUrl === preset.url && (
                       <div className="absolute top-1 right-1 w-4 h-4 rounded-full bg-gold-500 text-obsidian-950 flex items-center justify-center">
