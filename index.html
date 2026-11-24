@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JQ BAGS — Sacs & Porte-clés artisanaux</title>
+    <meta
+      name="description"
+      content="Découvrez nos sacs et porte-clés en perles faits main."
+    />
+    <link rel="icon" type="image/png" href="assets/images/logo.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+      .product-card {
+        background: #1a1a1a;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid #333;
+      }
+      .product-card:hover {
+        border-color: #c9a84c;
+        transform: translateY(-8px);
+      }
+      .product-img-wrap {
+        position: relative;
+        aspect-ratio: 1;
+        overflow: hidden;
+      }
+      .product-img-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .product-badge {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        padding: 4px 12px;
+        border-radius: 50px;
+        font-size: 0.7rem;
+        font-weight: 500;
+      }
+      .badge-promo {
+        background: #c9a84c;
+        color: #000;
+      }
+      .badge-vedette {
+        background: transparent;
+        border: 1px solid #c9a84c;
+        color: #c9a84c;
+      }
+      .product-actions {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        gap: 8px;
+        padding: 12px;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .product-card:hover .product-actions {
+        opacity: 1;
+      }
+      .btn-action {
+        flex: 1;
+        padding: 10px;
+        border-radius: 8px;
+        font-size: 0.78rem;
+        font-weight: 500;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+      }
+      .btn-action-cart {
+        background: #25d366;
+        color: white;
+      }
+      .btn-action-cart:hover {
+        background: #1ebe5d;
+      }
+      .btn-action-secondary {
+        background: rgba(201, 168, 76, 0.2);
+        border: 1px solid rgba(201, 168, 76, 0.5);
+        color: #c9a84c;
+      }
+      .product-info {
+        padding: 20px;
+      }
+      .product-category {
+        font-size: 0.7rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #c9a84c;
+        margin-bottom: 6px;
+      }
+      .product-name {
+        font-family: "Playfair Display", serif;
+        font-size: 1.1rem;
+        color: white;
+        margin-bottom: 12px;
+      }
+      .product-name a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .product-price {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .price-main {
+        font-family: "Playfair Display", serif;
+        font-size: 1.3rem;
+        color: #c9a84c;
+        font-weight: 700;
+      }
+      .price-original {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.6);
+        text-decoration: line-through;
+      }
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 28px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="loader">
+      <div class="loader-ring"></div>
+      <div class="loader-text">JQ BAGS</div>
+    </div>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <header id="main-header">
+      <div class="header-inner">
+        <a href="index.html" class="logo">
+          <img
+            src="assets/images/logo.jpeg"
+            alt="Logo"
+            class="logo-img"
+            onerror="this.style.display = 'none'"
+          />
+          <span class="logo-text" style="display: none">JQ BAGS</span>
+        </a>
+        <nav class="main-nav" id="main-nav">
+          <ul>
+            <li><a href="index.html" class="nav-link active">Accueil</a></li>
+            <li><a href="produits.html" class="nav-link">Nos Produits</a></li>
+            <li><a href="produits.html?cat=1" class="nav-link">Sacs</a></li>
+            <li>
+              <a href="produits.html?cat=2" class="nav-link">Accessoires</a>
+            </li>
+            <li><a href="contact.html" class="nav-link">Contact</a></li>
+            <li>
+              <a href="admin/login.php" class="nav-link" style="color: #c9a84c"
+                ><i class="fas fa-cog"></i> Admin</a
+              >
+            </li>
+          </ul>
+        </nav>
+        <div class="header-actions">
+          <a
+            href="#"
+            class="login-btn-header"
+            id="login-btn"
+            onclick="
+              showAuthModal('login');
+              return false;
+            "
+          >
+            <i class="fas fa-user"></i> Connexion
+          </a>
+          <a
+            href="panier.html"
+            class="cart-btn-header"
+            style="position: relative; padding: 8px 12px"
+          >
+            <i class="fas fa-shopping-basket"></i>
+            <span
+              id="cart-count"
+              style="
+                position: absolute;
+                top: -5px;
+                right: -5px;
+                background: #c9a84c;
+                color: #000;
+                font-size: 0.7rem;
+                width: 18px;
+                height: 18px;
+                border-radius: 50%;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+              "
+              >0</span
+            >
+          </a>
+          <a
+            href="https://wa.me/23772362828"
+            class="btn-whatsapp-header"
+            target="_blank"
+            ><i class="fab fa-whatsapp"></i> Commander</a
+          >
+          <button class="burger" id="burger">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-bg">
+        <img
+          id="hero-bg-image"
+          src="assets/images/Hero1.jpeg"
+          alt="Sacs en perles"
+          class="hero-bg-img"
+        />
+        <div class="hero-overlay"></div>
+      </div>
+      <div class="hero-content">
+        <div class="hero-badge">✦ Artisanat Premium ✦</div>
+        <h1 class="hero-title">
+          <span class="line1">L'Art des</span>
+          <span class="line2 gold-text">Perles</span>
+          <span class="line3">à Porter</span>
+        </h1>
+        <p class="hero-subtitle">Sacs & accessoires faits main avec passion.</p>
+        <div class="hero-ctas">
+          <a href="produits.html" class="btn btn-primary"
+            ><span>Découvrir la Collection</span
+            ><i class="fas fa-arrow-right"></i
+          ></a>
+          <a
+            href="https://wa.me/23772362828"
+            class="btn btn-whatsapp"
+            target="_blank"
+            ><i class="fab fa-whatsapp"></i
+            ><span>Commander sur WhatsApp</span></a
+          >
+        </div>
+      </div>
+    </section>
+
+    <div class="announcement-bar">
+      <div class="announcement-inner">
+        <span>✦ Livraison rapide disponible</span>
+        <span>✦ Pièces 100% artisanales</span>
+        <span>✦ Commande via WhatsApp</span>
+        <span>✦ Personnalisation sur demande</span>
+      </div>
+    </div>
+
+    <section class="categories-section section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-badge">Nos Collections</div>
+          <h2 class="section-title">
+            Explorez nos <span class="gold-text">créations</span>
+          </h2>
+        </div>
+        <div class="categories-grid">
+          <a href="produits.html?cat=1" class="category-card">
+            <div class="category-img-wrap">
+              <img
+                id="cat-img-1"
+                src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600"
+                alt="Sacs"
+              />
+              <div class="category-overlay"></div>
+            </div>
+            <div class="category-info">
+              <h3>Sacs en Perles</h3>
+              <p>Clutches, sacs à main, bandoulières</p>
+            </div>
+          </a>
+          <a href="produits.html?cat=2" class="category-card">
+            <div class="category-img-wrap">
+              <img
+                id="cat-img-2"
+                src="https://images.unsplash.com/photo-1617038224558-28ad3fb558a7?w=600"
+                alt="Porte-clés"
+              />
+              <div class="category-overlay"></div>
+            </div>
+            <div class="category-info">
+              <h3>Porte-clés en Perles</h3>
+              <p>Étoiles, prénom s, formes personnalisées</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="featured-section section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-badge">Coups de Cœur</div>
+          <h2 class="section-title">
+            Nos <span class="gold-text">Best-sellers</span>
+          </h2>
+        </div>
+        <div class="products-grid" id="featured-products"></div>
+      </div>
+    </section>
+
+    <section class="whatsapp-banner">
+      <div class="wa-banner-bg"></div>
+      <div class="container">
+        <div class="wa-banner-content">
+          <div class="wa-icon-wrap"><i class="fab fa-whatsapp"></i></div>
+          <div class="wa-text">
+            <h2>Commandez en toute simplicité</h2>
+            <p>
+              Contactez-nous directement sur WhatsApp pour passer votre
+              commande.
+            </p>
+          </div>
+          <a
+            href="https://wa.me/23772362828"
+            class="btn btn-whatsapp-large"
+            target="_blank"
+            ><i class="fab fa-whatsapp"></i> Commander sur WhatsApp</a
+          >
+          <div class="logo-small">JQ BAGS</div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="main-footer">
+      <div class="footer-top">
+        <div class="container footer-grid">
+          <div class="footer-brand">
+            <a href="index.html" class="logo logo-footer"
+              ><span class="logo-text">JQ BAGS</span></a
+            >
+            <p>L'art des perles sublimé dans chaque création.</p>
+          </div>
+          <div class="footer-links">
+            <h4>Navigation</h4>
+            <ul>
+              <li><a href="index.html">Accueil</a></li>
+              <li><a href="produits.html">Produits</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li>
+                <a href="admin/login.php" style="color: #c9a84c">Admin</a>
+              </li>
+            </ul>
+          </div>
+          <div class="footer-contact">
+            <a
+              href="https://wa.me/23772362828"
+              class="btn btn-whatsapp-footer"
+              target="_blank"
+              ><i class="fab fa-whatsapp"></i> WhatsApp</a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="container">
+          <p>&copy; <span id="year"></span> JQ BAGS.</p>
+        </div>
+      </div>
+    </footer>
+
+    <a href="https://wa.me/23772362828" class="whatsapp-float" target="_blank"
+      ><i class="fab fa-whatsapp"></i
+    ></a>
+    <button class="scroll-top" id="scroll-top">
+      <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/cart.js"></script>
+    <script>
+      initCart();
+
+      // Charger les paramètres du site
+      (function loadSiteSettings() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "api/get_settings.php", true);
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+            try {
+              var data = JSON.parse(xhr.responseText);
+              if (data.success && data.settings) {
+                var s = data.settings;
+
+                // Image Hero
+                if (s.hero_image) {
+                  var hero = document.getElementById("hero-bg-image");
+                  if (hero) hero.src = s.hero_image;
+                }
+
+                // Catégorie 1: Sacs
+                if (s.cat_sacs_image) {
+                  var cat1 = document.getElementById("cat-img-1");
+                  if (cat1) cat1.src = s.cat_sacs_image;
+                }
+
+                // Catégorie 2: Porte-clés
+                if (s.cat_portefeuille_image) {
+                  var cat2 = document.getElementById("cat-img-2");
+                  if (cat2) cat2.src = s.cat_portefeuille_image;
+                }
+              }
+            } catch (e) {
+              console.error(e);
+            }
+          }
+        };
+        xhr.send();
+      })();
+
+      // Produits vedettes
+      (function () {
+        var container = document.getElementById("featured-products");
+        if (!container) return;
+        var xhr = new XMLHttpRequest();
+xhr.open("GET", "api/get_produits.php?vedette=1&limit=6", true);
+xhr.setRequestHeader('Cache-Control', 'no-cache');
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+            try {
+              var data = JSON.parse(xhr.responseText);
+              if (data.success && data.data && data.data.length > 0) {
+                var html = "";
+                for (var i = 0; i < data.data.length; i++) {
+                  var p = data.data[i];
+                  var hasPromo =
+                    p.prix_promo &&
+                    parseFloat(p.prix_promo) < parseFloat(p.prix);
+                  var prix = hasPromo ? p.prix_promo : p.prix;
+                  var isVedette = parseInt(p.vedette) === 1;
+                  var nom = p.nom.replace(/"/g, '"').replace(/'/g, "&#39;");
+                  var imgUrl = p.image_url.replace(/"/g, '"');
+                  var catNom = (p.categorie_nom || "").replace(/"/g, '"');
+                  var badgeHtml = hasPromo
+                    ? '<span class="product-badge badge-promo">Promo</span>'
+                    : isVedette
+                      ? '<span class="product-badge badge-vedette">✦ Vedette</span>'
+                      : "";
+                  var prixHtml =
+                    '<span class="price-main">' + formatPrix(prix) + "</span>";
+                  if (hasPromo)
+                    prixHtml +=
+                      '<span class="price-original">' +
+                      formatPrix(p.prix) +
+                      "</span>";
+                  html +=
+                    '<div class="product-card"><div class="product-img-wrap"><img src="' +
+                    imgUrl +
+                    '" alt="' +
+                    nom +
+                    '" onerror="this.src=\'assets/images/placeholder.png\'" />' +
+                    badgeHtml +
+                    '<div class="product-actions"><button class="btn-action btn-action-cart" onclick="addToCartBtn(' +
+                    p.id +
+                    ", '" +
+                    nom.replace(/'/g, "\\'") +
+                    "', " +
+                    prix +
+                    ", " +
+                    p.prix +
+                    ", '" +
+                    imgUrl.replace(/'/g, "\\'") +
+                    '\', this)"><i class="fas fa-shopping-basket"></i> Ajouter au panier</button><a href="detail-produit.html?id=' +
+                    p.id +
+                    '" class="btn-action btn-action-secondary">Voir détails</a></div></div><div class="product-info"><div class="product-category">' +
+                    catNom +
+                    '</div><h3 class="product-name"><a href="detail-produit.html?id=' +
+                    p.id +
+                    '">' +
+                    nom +
+                    '</a></h3><div class="product-price">' +
+                    prixHtml +
+                    "</div></div></div>";
+                }
+                container.innerHTML = html;
+              } else {
+                container.innerHTML =
+                  '<p style="grid-column:1/-1;text-align:center;padding:40px;color:#888;">Aucun produit trouvé</p>';
+              }
+            } catch (e) {
+              console.error(e);
+              container.innerHTML =
+                '<p style="grid-column:1/-1;text-align:center;padding:40px;color:#ff6b7a;">Erreur de chargement</p>';
+            }
+          }
+        };
+        xhr.send();
+      })();
+
+      function formatPrix(prix) {
+        return (
+          new Intl.NumberFormat("fr-FR").format(Math.round(prix)) + " F CFA"
+        );
+      }
+
+      function addToCartBtn(id, nom, prix, prixOriginal, imgUrl, btn) {
+        var produit = {
+          id: id,
+          nom: nom,
+          prix: prix,
+          prix_original: prixOriginal,
+          image_url: imgUrl,
+        };
+        addToCart(produit, 1);
+        var originalHtml = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-check"></i> Ajouté !';
+        btn.style.background = "#1ebe5d";
+        setTimeout(function () {
+          btn.innerHTML = originalHtml;
+          btn.style.background = "";
+        }, 1500);
+      }
+    </script>
+  </body>
+</html>

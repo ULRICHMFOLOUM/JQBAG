@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Auth - JQ BAGS</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+      body {
+        background: #111;
+        color: #fff;
+        padding: 20px;
+        font-family: sans-serif;
+      }
+      .test-container {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      .test-section {
+        background: #1a1a1a;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 12px;
+      }
+      .test-section h3 {
+        color: #c9a84c;
+        margin-bottom: 15px;
+      }
+      button {
+        background: #c9a84c;
+        color: #000;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        margin: 5px;
+      }
+      button:hover {
+        background: #e8c96b;
+      }
+      .result {
+        background: #111;
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 15px;
+        font-family: monospace;
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+      .success {
+        color: #4ade80;
+      }
+      .error {
+        color: #f87171;
+      }
+      .test-btn {
+        background: #25d366;
+      }
+      .test-btn-download {
+        background: #c9a84c;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="test-container">
+      <h1 style="text-align: center; color: #c9a84c">
+        Test Système d'Authentification
+      </h1>
+
+      <div class="test-section">
+        <h3>1. Test Inscription</h3>
+        <button onclick="testInscription()">S'inscrire</button>
+        <div id="result-register" class="result"></div>
+      </div>
+
+      <div class="test-section">
+        <h3>2. Test Connexion</h3>
+        <button onclick="testConnexion()">Se connecter</button>
+        <div id="result-login" class="result"></div>
+      </div>
+
+      <div class="test-section">
+        <h3>3. Vérifier si connecté</h3>
+        <button onclick="checkAuth()">Vérifier</button>
+        <div id="result-check" class="result"></div>
+      </div>
+
+      <div class="test-section">
+        <h3>4. Test Panier (Télécharger ticket)</h3>
+        <button class="test-btn-download" onclick="testDownloadTicket()">
+          Télécharger le ticket
+        </button>
+        <div id="result-ticket" class="result"></div>
+      </div>
+
+      <div class="test-section">
+        <h3>5. Voir le Modal</h3>
+        <button onclick="showModal()">Afficher le modal</button>
+      </div>
+    </div>
+
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/cart.js"></script>
+    <script>
+      // Ajouter un produit au panier pour les tests
+      function addTestProduct() {
+        const testProduct = {
+          id: 1,
+          nom: "Sac Test",
+          prix: 25000,
+          prix_original: 30000,
+          image: "assets/images/placeholder.png",
+          quantite: 2,
+        };
+        localStorage.setItem("perles_cart", JSON.stringify([testProduct]));
+        document.getElementById("result-ticket").innerHTML =
+          '<span class="success">✓ Produit ajouté au panier</span>';
+      }
+
+      // Initialiser
+      addTestProduct();
+
+      // Test inscription
+      async function testInscription() {
+        const resultDiv = document.getElementById("result-register");
+        resultDiv.innerHTML = "Inscription en cours...";
+
+        const formData = {
+          nom: "Nouveau Client",
+          email: "client" + Date.now() + "@test.com",
+          telephone: "226 00 00 00 00",
+          password: "password123",
+          confirm_password: "password123",
+        };
+
+        try {
+          const response = await fetch("api/user_register.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams(formData),
+          });
+
+          const data = await response.json();
+          resultDiv.innerHTML = JSON.stringify(data, null, 2);
+
+          if (data.success) {
+            resultDiv.innerHTML =
+              '<span class="success">✓ Inscription réussie!</span>\n\n' +
+              JSON.stringify(data, null, 2);
+          } else {
+            resultDiv.innerHTML =
+              '<span class="error">✗ Erreur:</span>\n' +
+              JSON.stringify(data, null, 2);
+          }
+        } catch (e) {
+          resultDiv.innerHTML =
+            '<span class="error">✗ Erreur: ' + e.message + "</span>";
+        }
+      }
+
+      // Test connexion
+      async function testConnexion() {
+        const resultDiv = document.getElementById("result-login");
+        resultDiv.innerHTML = "Connexion en cours...";
+
+        // D'abord s'inscrire
+        const email = "testuser" + Date.now() + "@exemple.com";
+        await fetch("api/user_register.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body:
+            "nom=Test User&email=" +
+            email +
+            "&telephone=22600000000&password=password123&confirm_password=password123",
+        });
+
+        // Puis se connecter
+        const formData = {
+          email: email,
+          password: "password123",
+        };
+
+        try {
+          const response = await fetch("api/user_login.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams(formData),
+          });
+
+          const data = await response.json();
+
+          if (data.success) {
+            localStorage.setItem("perles_user", JSON.stringify(data.user));
+            resultDiv.innerHTML =
+              '<span class="success">✓ Connexion réussie!</span>\n\n' +
+              JSON.stringify(data, null, 2);
+          } else {
+            resultDiv.innerHTML =
+              '<span class="error">✗ Erreur:</span>\n' +
+              JSON.stringify(data, null, 2);
+          }
+        } catch (e) {
+          resultDiv.innerHTML =
+            '<span class="error">✗ Erreur: ' + e.message + "</span>";
+        }
+      }
+
+      // Vérifier auth
+      function checkAuth() {
+        const resultDiv = document.getElementById("result-check");
+        const user = localStorage.getItem("perles_user");
+
+        if (user) {
+          resultDiv.innerHTML =
+            '<span class="success">✓ Connecté!</span>\n\n' + user;
+        } else {
+          resultDiv.innerHTML = '<span class="error">✗ Non connecté</span>';
+        }
+      }
+
+      // Test download ticket
+      function testDownloadTicket() {
+        const resultDiv = document.getElementById("result-ticket");
+
+        if (!isUserLoggedIn()) {
+          resultDiv.innerHTML =
+            '<span class="error">✗ Non connecté! Cliquez sur "Afficher le modal" pour vous connecter</span>';
+          return;
+        }
+
+        // Tester le téléchargement
+        downloadTicket();
+        resultDiv.innerHTML =
+          '<span class="success">✓ Ticket téléchargé! Vérifiez vos téléchargements.</span>';
+      }
+
+      // Show modal
+      function showModal() {
+        showAuthModal("login");
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Détail Produit — Perles & Élégance</title>
+  <link rel="icon" type="image/png" href="assets/images/logo.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    .detail-main { padding-top: 100px; padding-bottom: 60px; }
+    .product-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; }
+    .detail-images .main-image-wrap { border-radius: 12px; overflow: hidden; aspect-ratio: 1; background: #1a1a1a; }
+    .detail-images .main-image-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .detail-info h1 { font-family: 'Playfair Display', serif; font-size: 2rem; color: white; margin-bottom: 20px; }
+    .detail-category { font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; color: #C9A84C; margin-bottom: 10px; }
+    .detail-price { font-family: 'Playfair Display', serif; font-size: 2rem; color: #C9A84C; }
+    .detail-price-original { font-size: 1.2rem; color: rgba(255,255,255,0.6); text-decoration: line-through; margin-left: 15px; }
+    .detail-stock { display: inline-block; padding: 6px 14px; border-radius: 50px; font-size: 0.8rem; background: rgba(37,211,102,0.1); color: #25D366; margin: 15px 0; }
+    .detail-description { color: rgba(255,255,255,0.8); line-height: 1.8; margin: 25px 0; border-top: 1px solid #333; padding-top: 20px; }
+    .detail-actions { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+    .btn-add-cart { display: flex; align-items: center; justify-content: center; gap: 10px; background: #C9A84C; color: #000; padding: 14px 32px; border-radius: 50px; font-size: 1rem; font-weight: 600; text-decoration: none; border: none; cursor: pointer; }
+    .btn-add-cart:hover { background: #E8C96B; }
+    .btn-wa-order { display: flex; align-items: center; justify-content: center; gap: 12px; background: #25D366; color: white; padding: 14px 32px; border-radius: 50px; font-size: 1rem; font-weight: 600; text-decoration: none; border: none; cursor: pointer; }
+    .similaires-section { margin-top: 60px; padding-top: 40px; border-top: 1px solid #333; }
+    .similaires-section h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: white; margin-bottom: 30px; }
+    .breadcrumb { margin-bottom: 30px; font-size: 0.85rem; color: #888; }
+    .breadcrumb a { color: #C9A84C; text-decoration: none; }
+    .product-card { background: #1a1a1a; border-radius: 12px; overflow: hidden; border: 1px solid #333; }
+    .product-card:hover { border-color: #C9A84C; }
+    .product-img-wrap { position: relative; aspect-ratio: 1; overflow: hidden; }
+    .product-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .product-actions { position: absolute; bottom: 0; left: 0; right: 0; display: flex; gap: 8px; padding: 12px; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); opacity: 0; transition: opacity 0.3s; }
+    .product-card:hover .product-actions { opacity: 1; }
+    .btn-action { flex: 1; padding: 10px; border-radius: 8px; font-size: 0.78rem; font-weight: 500; text-align: center; text-decoration: none; cursor: pointer; border: none; }
+    .btn-action-cart { background: #25D366; color: white; }
+    .btn-action-secondary { background: rgba(201,168,76,0.2); border: 1px solid rgba(201,168,76,0.5); color: #C9A84C; }
+    .product-info { padding: 20px; }
+    .product-category { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: #C9A84C; margin-bottom: 6px; }
+    .product-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: white; margin-bottom: 12px; }
+    .product-name a { color: inherit; text-decoration: none; }
+    .product-price { display: flex; align-items: center; gap: 10px; }
+    .price-main { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #C9A84C; font-weight: 700; }
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+  </style>
+</head>
+<body>
+
+<div id="loader"></div>
+<div class="cursor-dot"></div>
+<div class="cursor-outline"></div>
+
+<header id="main-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <img src="assets/images/logo.png" alt="Logo" class="logo-img" onerror="this.style.display='none'" />
+      <span class="logo-text" style="display:none;">Perles & Élégance</span>
+    </a>
+    <nav class="main-nav" id="main-nav">
+      <ul>
+        <li><a href="index.html" class="nav-link">Accueil</a></li>
+        <li><a href="produits.html" class="nav-link">Nos Produits</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <a href="panier.html" class="cart-btn-header" style="position:relative;padding:8px 12px;">
+        <i class="fas fa-shopping-basket"></i>
+        <span id="cart-count" style="position:absolute;top:-5px;right:-5px;background:#C9A84C;color:#000;font-size:0.7rem;width:18px;height:18px;border-radius:50%;display:none;align-items:center;justify-content:center;font-weight:bold;">0</span>
+      </a>
+      <a href="https://wa.me/22600000000" class="btn-whatsapp-header" target="_blank"><i class="fab fa-whatsapp"></i> Commander</a>
+      <button class="burger" id="burger"><span></span><span></span><span></span></button>
+    </div>
+</header>
+
+<main class="detail-main section">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Accueil</a> / <a href="produits.html">Produits</a> / <span id="detail-breadcrumb-name">...</span>
+    </div>
+    <div id="product-detail-content"></div>
+    <div class="similaires-section" id="similaires-section" style="display:none;">
+      <h2>Vous aimerez aussi</h2>
+      <div class="products-grid" id="similaires-grid"></div>
+  </div>
+</main>
+
+<a href="https://wa.me/23772362828" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<button class="scroll-top" id="scroll-top"><i class="fas fa-chevron-up"></i></button>
+
+<script src="assets/js/main.js"></script>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/cart.js"></script>
+<script>
+initCart();
+
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var id = params.get('id');
+  if (!id) {
+    document.getElementById('product-detail-content').innerHTML = '<p style="text-align:center;padding:60px;color:#888;">Produit introuvable</p>';
+    return;
+  }
+  
+  var container = document.getElementById('product-detail-content');
+  container.innerHTML = '<p style="text-align:center;padding:60px;color:#C9A84C;"><i class="fas fa-spinner fa-spin"></i> Chargement...</p>';
+  
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'api/get_produit.php?id=' + encodeURIComponent(id), true);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      try {
+        var data = JSON.parse(xhr.responseText);
+        if (!data.success || !data.data) {
+          container.innerHTML = '<p style="text-align:center;padding:60px;color:#888;">Produit introuvable</p>';
+          return;
+        }
+        
+        var p = data.data;
+        document.getElementById('detail-breadcrumb-name').textContent = p.nom;
+        document.title = p.nom + ' — Perles & Élégance';
+        
+        var hasPromo = p.prix_promo && parseFloat(p.prix_promo) < parseFloat(p.prix);
+        var prix = hasPromo ? p.prix_promo : p.prix;
+        
+        var nom = p.nom.replace(/"/g, '"').replace(/'/g, '&#39;');
+        var desc = p.description.replace(/\n/g, '<br>');
+        var catNom = (p.categorie_nom || '').replace(/"/g, '"');
+        var imgUrl = p.image_url.replace(/"/g, '"');
+        
+        var html = '<div class="product-detail-grid">' +
+          '<div class="detail-images">' +
+            '<div class="main-image-wrap">' +
+              '<img src="' + imgUrl + '" alt="' + nom + '" onerror="this.src=\'assets/images/placeholder.png\'" />' +
+            '</div>' +
+          '</div>' +
+          '<div class="detail-info">' +
+            '<div class="detail-category">' + catNom + '</div>' +
+            '<h1>' + nom + '</h1>' +
+            '<div><span class="detail-price">' + formatPrix(prix) + '</span>';
+        
+        if (hasPromo) {
+          html += '<span class="detail-price-original">' + formatPrix(p.prix) + '</span>';
+        }
+        
+        html += '</div>' +
+          '<div class="detail-stock"><i class="fas fa-check-circle"></i> ' + (p.stock > 0 ? 'En stock (' + p.stock + ')' : 'Sur commande') + '</div>' +
+          '<div class="detail-description"><p>' + desc + '</p></div>' +
+          '<div class="detail-actions">' +
+            '<button class="btn-add-cart" onclick="addToCartDetail(' + p.id + ', \'' + nom.replace(/'/g, "\\'") + '\', ' + prix + ', ' + p.prix + ', \'' + imgUrl.replace(/'/g, "\\'") + '\', this)"><i class="fas fa-shopping-basket"></i> Ajouter au panier</button>' +
+          '</div>' +
+        '</div>';
+        
+        container.innerHTML = html;
+        
+        // Produits similaires
+        if (data.similaires && data.similaires.length > 0) {
+          var simContainer = document.getElementById('similaires-grid');
+          var simSection = document.getElementById('similaires-section');
+          simSection.style.display = 'block';
+          
+          for (var i = 0; i < data.similaires.length; i++) {
+            var s = data.similaires[i];
+            var sHasPromo = s.prix_promo && parseFloat(s.prix_promo) < parseFloat(s.prix);
+            var sPrix = sHasPromo ? s.prix_promo : s.prix;
+            var sNom = s.nom.replace(/"/g, '"').replace(/'/g, '&#39;');
+            var sImg = s.image_url.replace(/"/g, '"');
+            
+            simContainer.innerHTML += '<div class="product-card">' +
+              '<div class="product-img-wrap">' +
+                '<img src="' + sImg + '" alt="' + sNom + '" onerror="this.src=\'assets/images/placeholder.png\'" />' +
+                '<div class="product-actions">' +
+                  '<button class="btn-action btn-action-cart" onclick="addToCartSim(' + s.id + ', \'' + sNom.replace(/'/g, "\\'") + '\', ' + sPrix + ', ' + s.prix + ', \'' + sImg.replace(/'/g, "\\'") + '\', this)"><i class="fas fa-shopping-basket"></i> Ajouter</button>' +
+                  '<a href="detail-produit.html?id=' + s.id + '" class="btn-action btn-action-secondary">Voir</a>' +
+                '</div>' +
+              '</div>' +
+              '<div class="product-info">' +
+                '<div class="product-category"></div>' +
+                '<h3 class="product-name"><a href="detail-produit.html?id=' + s.id + '">' + sNom + '</a></h3>' +
+                '<div class="product-price"><span class="price-main">' + formatPrix(sPrix) + '</span></div>' +
+              '</div>' +
+            '</div>';
+          }
+        }
+        
+      } catch(e) {
+        console.error(e);
+        container.innerHTML = '<p style="text-align:center;padding:60px;color:#ff6b7a;">Erreur de chargement</p>';
+      }
+    }
+  };
+  xhr.send();
+})();
+
+function formatPrix(prix) {
+  return new Intl.NumberFormat('fr-FR').format(Math.round(prix)) + ' F CFA';
+}
+
+function addToCartDetail(id, nom, prix, prixOriginal, imgUrl, btn) {
+  var produit = {
+    id: id,
+    nom: nom,
+    prix: prix,
+    prix_original: prixOriginal,
+    image_url: imgUrl
+  };
+  addToCart(produit, 1);
+  
+  var originalHtml = btn.innerHTML;
+  btn.innerHTML = '<i class="fas fa-check"></i> Ajouté !';
+  btn.style.background = '#1ebe5d';
+  setTimeout(function() {
+    btn.innerHTML = originalHtml;
+    btn.style.background = '';
+  }, 1500);
+}
+
+function addToCartSim(id, nom, prix, prixOriginal, imgUrl, btn) {
+  var produit = {
+    id: id,
+    nom: nom,
+    prix: prix,
+    prix_original: prixOriginal,
+    image_url: imgUrl
+  };
+  addToCart(produit, 1);
+  
+  var originalHtml = btn.innerHTML;
+  btn.innerHTML = '<i class="fas fa-check"></i> Ajouté !';
+  btn.style.background = '#1ebe5d';
+  setTimeout(function() {
+    btn.innerHTML = originalHtml;
+    btn.style.background = '';
+  }, 1500);
+}
+</script>
+</body>
+</html>

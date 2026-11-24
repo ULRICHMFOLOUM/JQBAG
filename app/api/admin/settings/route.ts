@@ -1,0 +1,58 @@
+import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { revalidatePath } from "next/cache";
+
+export const dynamic = "force-dynamic";
+
+export async function GET() {
+  try {
+    const settings = await prisma.setting.findMany();
+    const settingsMap: Record<string, string> = {};
+    for (const s of settings) {
+      settingsMap[s.key] = s.value;
+    }
+    return NextResponse.json({ settings: settingsMap });
+  } catch (error: any) {
+    console.error("Erreur lecture paramètres:", error);
+    return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
+  }
+}
+
+export async function POST(req: Request) {
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session || (session.user as any)?.role !== "ADMIN") {
+      return NextResponse.json({ error: "Accès refusé - réservé aux administrateurs" }, { status: 403 });
+    }
+
+    const body = await req.json();
+    const { settings } = body;
+
+    if (!settings || typeof settings !== "object") {
+      return NextResponse.json({ error: "Paramètres invalides" }, { status: 400 });
+    }
+
+    // Mettre à jour ou créer chaque paramètre
+    for (const [key, value] of Object.entries(settings)) {
+      if (typeof value === "string") {
+        await prisma.setting.upsert({
+          where: { key },
+          update: { value },
+          create: { key, value },
+        });
+      }
+    }
+
+    // Invalider le cache de la page d'accueil et de l'admin pour mise à jour immédiate
+    revalidatePath("/", "page");
+    revalidatePath("/", "layout");
+    revalidatePath("/admin", "page");
+
+    return NextResponse.json({ success: true, message: "Paramètres enregistrés avec succès" });
+  } catch (error: any) {
+    console.error("Erreur enregistrement paramètres:", error);
+    return NextResponse.json({ error: "Erreur lors de l'enregistrement" }, { status: 500 });
+  }
+}

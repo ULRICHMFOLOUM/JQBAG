@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --font-playfair: 'Playfair Display', Georgia, serif;
+    --font-montserrat: 'Montserrat', Inter, -apple-system, sans-serif;
+  }
+
+  body {
+    @apply bg-obsidian-950 text-zinc-100 antialiased selection:bg-gold-500 selection:text-obsidian-950;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    font-family: var(--font-montserrat);
+  }
+
+  /* Custom Gold Scrollbar */
+  ::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0f1018;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #d4af3755;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #d4af37aa;
+  }
+}
+
+/* Gold gradient text utility */
+.gold-gradient-text {
+  background: linear-gradient(135deg, #ffffff 0%, #fef08a 40%, #d4af37 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Animated gold shimmer text */
+.gold-shimmer-text {
+  background: linear-gradient(90deg, #d4af37, #f2e4bf, #d4af37, #b89028, #d4af37);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer-text 3s ease-in-out infinite;
+}
+
+/* Glow effects */
+.gold-border-glow {
+  box-shadow: 0 0 25px -5px rgba(212, 175, 55, 0.25);
+}
+
+.gold-soft-glow {
+  box-shadow: 0 4px 30px -4px rgba(212, 175, 55, 0.15), 0 0 0 1px rgba(212, 175, 55, 0.08);
+}
+
+/* Section glass card */
+.glass-card {
+  background: linear-gradient(135deg, rgba(26, 29, 43, 0.9) 0%, rgba(15, 16, 24, 0.95) 100%);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 175, 55, 0.12);
+}
+
+/* Subtle noise texture overlay */
+.noise-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Warm gradient divider */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.25), transparent);
+}

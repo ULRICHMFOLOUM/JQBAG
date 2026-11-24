@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Test API</title>
+  </head>
+  <body>
+    <h1>Testing get_settings API</h1>
+    <div id="result"></div>
+
+    <script>
+      console.log("Starting API call...");
+
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "api/get_settings.php", true);
+      xhr.onreadystatechange = function () {
+        console.log("ReadyState:", xhr.readyState, "Status:", xhr.status);
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          console.log("Response:", xhr.responseText);
+          try {
+            var data = JSON.parse(xhr.responseText);
+            console.log("Parsed data:", data);
+            document.getElementById("result").innerHTML =
+              "<pre>" + JSON.stringify(data, null, 2) + "</pre>";
+
+            // Test setting images
+            if (data.settings) {
+              console.log("Hero image:", data.settings.hero_image);
+              console.log("Cat sacs:", data.settings.cat_sacs_image);
+              console.log("Cat cles:", data.settings.cat_portefeuille_image);
+            }
+          } catch (e) {
+            console.error("Parse error:", e);
+          }
+        }
+      };
+      xhr.onerror = function () {
+        console.error("XHR Error");
+      };
+      xhr.send();
+    </script>
+  </body>
+</html>
