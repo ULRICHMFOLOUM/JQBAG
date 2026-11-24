@@ -44,23 +44,30 @@ export async function POST(req: Request) {
       );
     }
 
-    // Répertoire cible : public/uploads
-    const uploadsDir = path.join(process.cwd(), "public", "uploads");
-    if (!fs.existsSync(uploadsDir)) {
-      fs.mkdirSync(uploadsDir, { recursive: true });
-    }
-
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
-
+    const mediaType = file.type.startsWith("video") ? "video" : "image";
     const safeName = file.name.replace(/[^a-zA-Z0-9.-]/g, "_");
     const uniqueFileName = `media_${Date.now()}_${safeName}`;
-    const destinationPath = path.join(uploadsDir, uniqueFileName);
 
-    await fs.promises.writeFile(destinationPath, buffer);
+    let publicUrl = "";
 
-    const mediaType = file.type.startsWith("video") ? "video" : "image";
-    const publicUrl = `/uploads/${uniqueFileName}`;
+    // 1. Tenter l'écriture locale sur disque (serveur local ou hébergement avec FS inscriptible)
+    try {
+      const uploadsDir = path.join(process.cwd(), "public", "uploads");
+      if (!fs.existsSync(uploadsDir)) {
+        fs.mkdirSync(uploadsDir, { recursive: true });
+      }
+      const destinationPath = path.join(uploadsDir, uniqueFileName);
+      await fs.promises.writeFile(destinationPath, buffer);
+      publicUrl = `/uploads/${uniqueFileName}`;
+    } catch (fsErr) {
+      console.warn("Disque read-only (serverless) détecté, encodage direct en Data URL:", fsErr);
+      // 2. Bascule transparente en Data URL Base64 (100% compatible Netlify/Vercel serverless)
+      const mimeType = file.type || "image/png";
+      const base64 = buffer.toString("base64");
+      publicUrl = `data:${mimeType};base64,${base64}`;
+    }
 
     return NextResponse.json({
       success: true,
@@ -76,4 +83,3 @@ export async function POST(req: Request) {
     );
   }
 }
-

@@ -65,8 +65,23 @@ export default async function RootLayout({
   return (
     <html lang="fr" className="dark">
       <head>
-        <link rel="icon" href={siteIcon} />
-        <link rel="apple-touch-icon" href={siteIcon} />
+        <link rel="icon" href={siteIcon} id="app-favicon" />
+        <link rel="apple-touch-icon" href={siteIcon} id="app-apple-icon" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                var savedIcon = localStorage.getItem('jqbags_site_icon');
+                if (savedIcon) {
+                  var fav = document.getElementById('app-favicon');
+                  var appleFav = document.getElementById('app-apple-icon');
+                  if (fav) fav.href = savedIcon;
+                  if (appleFav) appleFav.href = savedIcon;
+                }
+              } catch(e) {}
+            `,
+          }}
+        />
       </head>
       <body className="min-h-screen flex flex-col bg-obsidian-950 font-sans text-zinc-100">
         <LuxuryCursor />

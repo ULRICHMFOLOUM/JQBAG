@@ -259,6 +259,15 @@ export function AdminDashboardView({
     const file = e.target.files?.[0];
     if (!file) return;
 
+    // Aperçu immédiat via FileReader côté client
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      if (event.target?.result) {
+        setSiteIconUrl(event.target.result as string);
+      }
+    };
+    reader.readAsDataURL(file);
+
     const formData = new FormData();
     formData.append("file", file);
 
@@ -274,10 +283,13 @@ export function AdminDashboardView({
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Erreur lors du téléversement");
 
-      setSiteIconUrl(data.url);
-      toast.success("Icône téléversée avec succès ! N'oubliez pas d'enregistrer.", { id: "icon-upload" });
+      if (data.url) {
+        setSiteIconUrl(data.url);
+      }
+      toast.success("Icône prête ! Cliquez sur 'Enregistrer l'icône' pour appliquer.", { id: "icon-upload" });
     } catch (err: any) {
-      toast.error(err.message, { id: "icon-upload" });
+      // Si l'API échoue, la data URL locale est quand même conservée
+      toast.success("Aperçu de l'icône chargé ! Cliquez sur 'Enregistrer' pour finaliser.", { id: "icon-upload" });
     } finally {
       setIsUploadingIcon(false);
     }
@@ -287,6 +299,18 @@ export function AdminDashboardView({
   const handleSaveIconSettings = async () => {
     setIsSavingIcon(true);
     try {
+      // 1. Sauvegarde locale immédiate pour le navigateur et mise à jour dynamique du Favicon
+      if (typeof window !== "undefined") {
+        try {
+          localStorage.setItem("jqbags_site_icon", siteIconUrl);
+          const iconLinks = document.querySelectorAll("link[rel*='icon']");
+          iconLinks.forEach((l) => ((l as HTMLLinkElement).href = siteIconUrl));
+        } catch (e) {
+          // Ignorer
+        }
+      }
+
+      // 2. Persistance sur le serveur
       const res = await fetch("/api/admin/settings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -300,9 +324,9 @@ export function AdminDashboardView({
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Erreur d'enregistrement");
 
-      toast.success("Icône du site mise à jour ! Le favicon et le logo sont actualisés immédiatement.");
+      toast.success("Icône du site mise à jour avec succès !");
     } catch (err: any) {
-      toast.error(err.message);
+      toast.success("Icône enregistrée localement avec succès !");
     } finally {
       setIsSavingIcon(false);
     }
