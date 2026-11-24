@@ -173,6 +173,15 @@ export function Footer({ siteLogo = "/images/logo.png" }: { siteLogo?: string })
         {/* Footer bottom bar */}
         <div className="mt-14 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-500 gap-4">
           <p>© {new Date().getFullYear()} JQ BAGS. Tous droits réservés.</p>
+          <div className="flex items-center gap-3 text-xs text-zinc-400">
+            <Link href="/confidentialite" className="hover:text-gold-400 transition-colors">
+              Confidentialité
+            </Link>
+            <span>•</span>
+            <Link href="/conditions" className="hover:text-gold-400 transition-colors">
+              Conditions Générales
+            </Link>
+          </div>
           <div className="flex items-center gap-1 text-zinc-400">
             <span>Créé avec minutie &amp; excellence</span>
             <Heart className="w-3.5 h-3.5 text-gold-400 fill-gold-400 mx-1" />
