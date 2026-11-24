@@ -47,7 +47,24 @@ export function AdminDashboardView({
   const [products, setProducts] = useState(initialProducts);
   const [recentOrders, setRecentOrders] = useState(initialRecentOrders);
   const [searchFilter, setSearchFilter] = useState("");
-  const [activeTab, setActiveTab] = useState<"products" | "orders" | "hero">("products");
+  const [activeTab, setActiveTab] = useState<"products" | "orders" | "hero" | "icon">("products");
+
+  // Site icon & logo settings state
+  const [siteIconUrl, setSiteIconUrl] = useState(
+    initialSettings.site_icon || "/images/logo.png"
+  );
+  const [isSavingIcon, setIsSavingIcon] = useState(false);
+  const [isUploadingIcon, setIsUploadingIcon] = useState(false);
+
+  // Preset icon options
+  const iconPresets = [
+    { label: "Logo Officiel JQ BAGS (PNG)", url: "/images/logo.png" },
+    { label: "Logo Écrin Sombre (JPEG)", url: "/images/logo.jpeg" },
+    { label: "Sac Clutch Doré", url: "/images/Sac 1.jpeg" },
+    { label: "Porte-clés Perlé", url: "/images/Porte 1.jpeg" },
+    { label: "Collection Atelier", url: "/images/Collection 1.jpeg" },
+    { label: "Hero Prestige Akwa", url: "/images/Hero1.jpeg" },
+  ];
 
   // Hero section settings state
   const [heroMediaType, setHeroMediaType] = useState<"image" | "video">(
@@ -237,6 +254,60 @@ export function AdminDashboardView({
     }
   };
 
+  // Upload handler for Site Icon
+  const handleIconFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    setIsUploadingIcon(true);
+    toast.loading("Téléversement de l'icône en cours...", { id: "icon-upload" });
+
+    try {
+      const res = await fetch("/api/admin/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Erreur lors du téléversement");
+
+      setSiteIconUrl(data.url);
+      toast.success("Icône téléversée avec succès ! N'oubliez pas d'enregistrer.", { id: "icon-upload" });
+    } catch (err: any) {
+      toast.error(err.message, { id: "icon-upload" });
+    } finally {
+      setIsUploadingIcon(false);
+    }
+  };
+
+  // Save Site Icon setting
+  const handleSaveIconSettings = async () => {
+    setIsSavingIcon(true);
+    try {
+      const res = await fetch("/api/admin/settings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          settings: {
+            site_icon: siteIconUrl,
+          },
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Erreur d'enregistrement");
+
+      toast.success("Icône du site mise à jour ! Le favicon et le logo sont actualisés immédiatement.");
+    } catch (err: any) {
+      toast.error(err.message);
+    } finally {
+      setIsSavingIcon(false);
+    }
+  };
+
   const filteredProducts = products.filter((p) => {
     if (!searchFilter.trim()) return true;
     return (
@@ -343,6 +414,18 @@ export function AdminDashboardView({
           >
             <Sliders className="w-4 h-4" />
             <span>Photo / Vidéo Hero (Accueil)</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab("icon")}
+            className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+              activeTab === "icon"
+                ? "bg-gold-500 text-obsidian-950 shadow-md shadow-gold-500/20"
+                : "bg-obsidian-850 text-gold-400 hover:text-white border border-gold-500/20"
+            }`}
+          >
+            <Gem className="w-4 h-4" />
+            <span>Icône &amp; Logo du Site</span>
           </button>
         </div>
 
@@ -639,6 +722,232 @@ export function AdminDashboardView({
                 <span className="text-white font-semibold block">Source active :</span>
                 <span className="font-mono text-[10px] text-gold-400 break-all block">
                   {heroMediaUrl}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================
+          TAB 1B: SITE ICON & LOGO MANAGEMENT
+      ======================================================== */}
+      {activeTab === "icon" && (
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          {/* Left: Configuration Form */}
+          <div className="lg:col-span-7 bg-obsidian-850 border border-gold-500/20 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs font-semibold mb-2">
+                <Gem className="w-3.5 h-3.5" />
+                <span>Identité Visuelle &amp; Favicon</span>
+              </div>
+              <h2 className="font-serif text-2xl font-bold text-white">
+                Icône &amp; Favicon du Site
+              </h2>
+              <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
+                Modifiez l'icône du site en direct. Elle s'affiche dans l'onglet du navigateur (favicon), dans la barre de navigation (logo), dans le pied de page et lors de l'ajout en favoris sur smartphone.
+              </p>
+            </div>
+
+            {/* Presets Grid */}
+            <div>
+              <label className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-2">
+                Logos &amp; Créations de l'Atelier (Sélection en 1 clic)
+              </label>
+              <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
+                {iconPresets.map((preset, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => setSiteIconUrl(preset.url)}
+                    className={`relative group rounded-2xl overflow-hidden aspect-square border transition-all p-1.5 flex flex-col items-center justify-center bg-obsidian-900 ${
+                      siteIconUrl === preset.url
+                        ? "border-gold-400 ring-2 ring-gold-400/50 scale-[1.05]"
+                        : "border-white/10 hover:border-gold-500/40 opacity-70 hover:opacity-100"
+                    }`}
+                  >
+                    <div className="relative w-full h-full rounded-xl overflow-hidden">
+                      <Image
+                        src={preset.url}
+                        alt={preset.label}
+                        fill
+                        sizes="100px"
+                        className="object-cover"
+                      />
+                    </div>
+                    {siteIconUrl === preset.url && (
+                      <div className="absolute top-1.5 right-1.5 w-4 h-4 rounded-full bg-gold-500 text-obsidian-950 flex items-center justify-center shadow">
+                        <Check className="w-3 h-3 stroke-[3]" />
+                      </div>
+                    )}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Upload or Custom URL */}
+            <div className="space-y-4 pt-4 border-t border-white/10">
+              <label className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider">
+                Ou Téléverser une Nouvelle Icône / Logo
+              </label>
+
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                <label className="relative cursor-pointer px-5 py-3 rounded-xl bg-gold-500/10 hover:bg-gold-500/20 border border-gold-500/40 text-gold-300 text-xs font-semibold flex items-center justify-center gap-2 transition-all">
+                  <Upload className="w-4 h-4 text-gold-400" />
+                  <span>{isUploadingIcon ? "Téléversement en cours..." : "Choisir un fichier (PNG, JPG, ICO, SVG)..."}</span>
+                  <input
+                    type="file"
+                    accept="image/png,image/jpeg,image/webp,image/x-icon,image/vnd.microsoft.icon,image/svg+xml"
+                    onChange={handleIconFileUpload}
+                    disabled={isUploadingIcon}
+                    className="hidden"
+                  />
+                </label>
+                <span className="text-[11px] text-zinc-500 text-center sm:text-left">
+                  Recommandé : image carrée (ex: 512×512 px) sur fond transparent ou noir.
+                </span>
+              </div>
+
+              <div>
+                <label className="block text-[11px] text-zinc-400 mb-1">
+                  Chemin d'accès ou URL directe :
+                </label>
+                <input
+                  type="text"
+                  value={siteIconUrl}
+                  onChange={(e) => setSiteIconUrl(e.target.value)}
+                  placeholder="/images/logo.png ou /uploads/..."
+                  className="w-full bg-obsidian-900 border border-gold-500/30 rounded-xl px-3.5 py-2.5 text-xs text-white font-mono focus:outline-none focus:border-gold-400"
+                />
+              </div>
+            </div>
+
+            {/* Save Button */}
+            <div className="space-y-3 pt-3">
+              <button
+                onClick={handleSaveIconSettings}
+                disabled={isSavingIcon || isUploadingIcon}
+                className="w-full py-3.5 rounded-xl bg-gold-500 hover:bg-gold-400 text-obsidian-950 font-bold text-xs uppercase tracking-wider transition-all disabled:opacity-50 shadow-xl shadow-gold-500/20 flex items-center justify-center gap-2"
+              >
+                <CheckCircle2 className="w-4 h-4" />
+                <span>
+                  {isSavingIcon
+                    ? "Enregistrement en cours..."
+                    : "Enregistrer et Activer l'Icône du Site"}
+                </span>
+              </button>
+
+              <div className="flex items-center justify-between text-xs pt-1">
+                <span className="text-zinc-500 text-[11px]">
+                  Actualise l'onglet du navigateur, le logo navbar et le pied de page.
+                </span>
+                <Link
+                  href="/"
+                  target="_blank"
+                  className="text-gold-400 hover:text-gold-300 font-semibold flex items-center gap-1.5 transition-colors"
+                >
+                  <span>Voir le site</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Right: Realistic Live Mockups */}
+          <div className="lg:col-span-5 space-y-4">
+            <div className="bg-obsidian-850 border border-gold-500/20 rounded-3xl p-6 shadow-xl sticky top-28 space-y-5">
+              <div className="flex items-center justify-between pb-3 border-b border-white/10">
+                <span className="text-xs font-bold text-gold-400 flex items-center gap-1.5">
+                  <Eye className="w-4 h-4" />
+                  Aperçu Réaliste en Temps Réel
+                </span>
+                <span className="px-2 py-0.5 rounded-full bg-gold-500/10 text-gold-400 text-[10px] font-mono border border-gold-500/20">
+                  FAVICON &amp; LOGO
+                </span>
+              </div>
+
+              {/* 1. Browser Tab Mockup */}
+              <div className="space-y-1.5">
+                <span className="text-[11px] text-zinc-400 uppercase tracking-wider font-semibold block">
+                  1. Dans l'onglet du navigateur (Favicon)
+                </span>
+                <div className="rounded-xl bg-obsidian-950 border border-white/10 p-2 shadow-inner">
+                  <div className="flex items-center gap-2 px-3 py-1.5 bg-obsidian-850 border border-gold-500/20 rounded-lg max-w-[260px] shadow-sm">
+                    <div className="relative w-4 h-4 rounded-full overflow-hidden shrink-0">
+                      <Image
+                        src={siteIconUrl}
+                        alt="Favicon"
+                        fill
+                        sizes="16px"
+                        className="object-cover"
+                      />
+                    </div>
+                    <span className="text-xs text-zinc-200 truncate font-sans">
+                      JQ BAGS — Haute Maroquinerie
+                    </span>
+                    <span className="text-zinc-500 text-[10px] ml-auto">×</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* 2. Navbar Logo Mockup */}
+              <div className="space-y-1.5 pt-2 border-t border-white/10">
+                <span className="text-[11px] text-zinc-400 uppercase tracking-wider font-semibold block">
+                  2. Dans l'en-tête du site (Navbar)
+                </span>
+                <div className="p-3 rounded-xl bg-obsidian-950 border border-white/10 flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <div className="relative w-9 h-9 rounded-full overflow-hidden border border-gold-500/40 p-0.5 shadow-md">
+                      <Image
+                        src={siteIconUrl}
+                        alt="Logo"
+                        fill
+                        sizes="36px"
+                        className="object-cover rounded-full"
+                      />
+                    </div>
+                    <div>
+                      <span className="font-serif text-sm font-bold tracking-widest text-white block">
+                        JQ BAGS
+                      </span>
+                      <span className="text-[8px] uppercase tracking-[0.2em] text-gold-400 font-sans block -mt-0.5">
+                        Perles &amp; Élégance
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 text-[10px] text-zinc-400">
+                    <span>Accueil</span>
+                    <span>Collections</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* 3. Mobile Bookmark / App Icon Mockup */}
+              <div className="space-y-1.5 pt-2 border-t border-white/10">
+                <span className="text-[11px] text-zinc-400 uppercase tracking-wider font-semibold block">
+                  3. Raccourci Écran d'Accueil Mobile
+                </span>
+                <div className="p-3 rounded-xl bg-obsidian-950 border border-white/10 flex items-center gap-3">
+                  <div className="relative w-12 h-12 rounded-2xl overflow-hidden border border-gold-500/30 p-1 bg-obsidian-900 shadow-lg">
+                    <Image
+                      src={siteIconUrl}
+                      alt="App Icon"
+                      fill
+                      sizes="48px"
+                      className="object-cover rounded-xl"
+                    />
+                  </div>
+                  <div>
+                    <span className="text-xs font-semibold text-white block">JQ BAGS</span>
+                    <span className="text-[10px] text-zinc-500 block">jqbags.com</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-4 p-3 rounded-xl bg-obsidian-900 border border-white/5 text-[11px] text-zinc-400 space-y-1">
+                <span className="text-white font-semibold block">Fichier sélectionné :</span>
+                <span className="font-mono text-[10px] text-gold-400 break-all block">
+                  {siteIconUrl}
                 </span>
               </div>
             </div>

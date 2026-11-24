@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Gem, Phone, Mail, MapPin, Heart, Send } from "lucide-react";
 import { toast } from "sonner";
 
-export function Footer() {
+export function Footer({ siteLogo = "/images/logo.png" }: { siteLogo?: string }) {
   const [email, setEmail] = useState("");
 
   const handleNewsletter = (e: React.FormEvent) => {
@@ -29,7 +29,7 @@ export function Footer() {
             <Link href="/" className="flex items-center gap-3">
               <div className="relative w-11 h-11 rounded-full overflow-hidden border border-gold-500/40 p-0.5">
                 <Image
-                  src="/images/logo.png"
+                  src={siteLogo}
                   alt="JQ BAGS"
                   width={44}
                   height={44}

@@ -29,6 +29,9 @@ export async function POST(req: Request) {
       "image/png",
       "image/webp",
       "image/gif",
+      "image/x-icon",
+      "image/vnd.microsoft.icon",
+      "image/svg+xml",
       "video/mp4",
       "video/webm",
       "video/quicktime",
@@ -36,7 +39,7 @@ export async function POST(req: Request) {
 
     if (!validMimes.includes(file.type)) {
       return NextResponse.json(
-        { error: "Format non supporté. Veuillez envoyer une image (JPEG, PNG, WEBP) ou une vidéo (MP4, WEBM)." },
+        { error: "Format non supporté. Veuillez envoyer une image (PNG, JPG, WEBP, ICO, SVG) ou une vidéo (MP4, WEBM)." },
         { status: 400 }
       );
     }

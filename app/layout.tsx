@@ -4,38 +4,75 @@ import { Providers } from "./providers";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { CartDrawer } from "@/components/cart/CartDrawer";
+import { prisma } from "@/lib/prisma";
 
-export const metadata: Metadata = {
-  title: "JQ BAGS — Haute Maroquinerie & Accessoires en Perles Fait Main",
-  description:
-    "Découvrez les sacs de soirée, clutches d'exception, minaudières et porte-clés artisanaux perlés faits main par l'atelier JQ BAGS.",
-  keywords: [
-    "sacs en perles",
-    "porte-clés fait main",
-    "artisanat Cameroun",
-    "maroquinerie luxe",
-    "clutch doré",
-    "accessoires perles",
-    "JQ BAGS",
-  ],
-  icons: {
-    icon: "/images/logo.png",
-  },
-};
+export const dynamic = "force-dynamic";
 
-export default function RootLayout({
+export async function generateMetadata(): Promise<Metadata> {
+  let siteIcon = "/images/logo.png";
+  try {
+    const iconSetting = await prisma.setting.findUnique({
+      where: { key: "site_icon" },
+    });
+    if (iconSetting?.value) {
+      siteIcon = iconSetting.value;
+    }
+  } catch (error) {
+    // Fallback if DB is not reachable during initial build
+  }
+
+  return {
+    title: "JQ BAGS — Haute Maroquinerie & Accessoires en Perles Fait Main",
+    description:
+      "Découvrez les sacs de soirée, clutches d'exception, minaudières et porte-clés artisanaux perlés faits main par l'atelier JQ BAGS.",
+    keywords: [
+      "sacs en perles",
+      "porte-clés fait main",
+      "artisanat Cameroun",
+      "maroquinerie luxe",
+      "clutch doré",
+      "accessoires perles",
+      "JQ BAGS",
+    ],
+    icons: {
+      icon: [
+        { url: siteIcon },
+      ],
+      shortcut: siteIcon,
+      apple: siteIcon,
+    },
+  };
+}
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  let siteIcon = "/images/logo.png";
+  try {
+    const iconSetting = await prisma.setting.findUnique({
+      where: { key: "site_icon" },
+    });
+    if (iconSetting?.value) {
+      siteIcon = iconSetting.value;
+    }
+  } catch (error) {
+    // Fallback
+  }
+
   return (
     <html lang="fr" className="dark">
+      <head>
+        <link rel="icon" href={siteIcon} />
+        <link rel="apple-touch-icon" href={siteIcon} />
+      </head>
       <body className="min-h-screen flex flex-col bg-obsidian-950 font-sans text-zinc-100">
         <Providers>
-          <Navbar />
+          <Navbar siteLogo={siteIcon} />
           <CartDrawer />
           <main className="flex-1">{children}</main>
-          <Footer />
+          <Footer siteLogo={siteIcon} />
         </Providers>
       </body>
     </html>

@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import { AuthModal } from "@/components/auth/AuthModal";
 
-export function Navbar() {
+export function Navbar({ siteLogo = "/images/logo.png" }: { siteLogo?: string }) {
   const { data: session } = useSession();
   const { totalCount, setIsDrawerOpen } = useCart();
   const [scrolled, setScrolled] = useState(false);
@@ -64,7 +64,7 @@ export function Navbar() {
           <Link href="/" className="flex items-center gap-3 group">
             <div className="relative w-10 h-10 rounded-full overflow-hidden border border-gold-500/40 p-0.5 group-hover:border-gold-400 transition-colors shadow-lg shadow-gold-500/10">
               <Image
-                src="/images/logo.png"
+                src={siteLogo}
                 alt="JQ BAGS"
                 width={40}
                 height={40}
