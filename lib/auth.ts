@@ -6,21 +6,16 @@ import bcrypt from "bcryptjs";
 
 export const authOptions: NextAuthOptions = {
   providers: [
-    ...(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
+    ...(process.env.GOOGLE_CLIENT_ID &&
+    process.env.GOOGLE_CLIENT_SECRET &&
+    process.env.GOOGLE_CLIENT_ID.trim() !== ""
       ? [
           GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
           }),
         ]
-      : [
-          // Fallback Google provider placeholder if keys are not yet filled,
-          // allowing Google button to inform the user nicely
-          GoogleProvider({
-            clientId: "google-placeholder-client-id",
-            clientSecret: "google-placeholder-client-secret",
-          }),
-        ]),
+      : []),
     CredentialsProvider({
       name: "Identifiants",
       credentials: {
